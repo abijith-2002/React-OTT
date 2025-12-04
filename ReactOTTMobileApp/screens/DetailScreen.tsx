@@ -15,6 +15,7 @@ import type { Video } from "../data/videoTypes";
 import LoadingIndicator from "../components/LoadingIndicator";
 import ErrorBoundary from "../components/ErrorBoundary";
 import Colors, { Sizing } from "../theme/theme";
+import VideoPlayer from "../components/VideoPlayer";
 
 // -- Constants
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -104,9 +105,18 @@ export default function DetailScreen() {
             {/* Description */}
             <Text style={styles.description}>{video?.description || "No description available."}</Text>
 
-            {/* Placeholder for VideoPlayer */}
+            {/* VideoPlayer */}
             <View style={styles.videoPlayerPlaceholder} accessibilityLabel="Video player area" testID="video-player-placeholder">
-              <Text style={styles.videoPlayerText}>[Video Player will appear here]</Text>
+              {video?.videoUrl ? (
+                // poster is banner, fallback to thumbnail
+                <VideoPlayer
+                  sourceUrl={video.videoUrl}
+                  poster={typeof video.banner === "string" ? video.banner : (typeof video.thumbnail === "string" ? video.thumbnail : undefined)}
+                  testID="video-player"
+                />
+              ) : (
+                <Text style={styles.videoPlayerText}>No video available to play.</Text>
+              )}
             </View>
           </ScrollView>
         )}
