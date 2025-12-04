@@ -15,9 +15,9 @@ import VideoCard from "../components/VideoCard";
 import LoadingIndicator from "../components/LoadingIndicator";
 import ErrorBoundary from "../components/ErrorBoundary";
 import Colors, { Sizing } from "../theme/theme";
-import { loadVideos } from "../utils/dataLoader";
 import type { Video, Category } from "../data/videoTypes";
 import type { RootStackParamList } from "../navigation/AppNavigator";
+import { useVideos } from "../App";
 
 // Helper: Categories must match the enum type and tabs
 const CATEGORY_LIST: Category[] = ["Movies", "Sports", "News"];
@@ -35,8 +35,8 @@ export default function HomeScreen() {
   const [selectedCat, setSelectedCat] = useState<Category>("Movies");
   const [refreshing, setRefreshing] = useState(false);
 
-  // Load/validate videos once
-  const { videosByCategory, errors } = loadVideos();
+  // Load/validate videos once from global VideosContext
+  const { videosByCategory, errors } = useVideos();
   const videos = videosByCategory[selectedCat];
   // Note: data state logic previously present was unused and caused linter violations. Rely on local logic instead.
 

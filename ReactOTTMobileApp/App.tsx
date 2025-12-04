@@ -1,21 +1,57 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { createContext, useContext, useMemo } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import AppNavigator from "./navigation/AppNavigator";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { loadVideos } from "./utils/dataLoader";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+// --- VideosContext: Exposes video data & possible errors globally ---
+import type { VideoList, VideoMap } from "./data/videoTypes";
+
+/**
+ * PUBLIC_INTERFACE
+ * VideosContext provides access to mock video data and associated load errors.
+ * Wrap the app in VideosProvider and consume via useVideos() hook.
+ */
+type VideosContextProps = {
+  videosByCategory: VideoMap;
+  allVideos: VideoList;
+  errors: string[];
+};
+const VideosContext = createContext<VideosContextProps | undefined>(undefined);
+
+export function useVideos() {
+  const ctx = useContext(VideosContext);
+  if (!ctx) throw new Error("useVideos must be used within a VideosProvider");
+  return ctx;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const VideosProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Load and memoize mock video data at app startup
+  const { videosByCategory, allVideos, errors } = useMemo(() => loadVideos(), []);
+  const videoValue = useMemo(
+    () => ({ videosByCategory, allVideos, errors }),
+    [videosByCategory, allVideos, errors]
+  );
+  return <VideosContext.Provider value={videoValue}>{children}</VideosContext.Provider>;
+};
+
+/**
+ * PUBLIC_INTERFACE
+ * App.tsx wraps the app with:
+ *   - SafeAreaProvider for proper safe-area support.
+ *   - ErrorBoundary to catch top-level app errors.
+ *   - VideosProvider to expose video data.
+ *   - AppNavigator for navigation & theme.
+ *   - StatusBar via AppNavigator/screens.
+ */
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <ErrorBoundary>
+        <VideosProvider>
+          <AppNavigator />
+        </VideosProvider>
+      </ErrorBoundary>
+    </SafeAreaProvider>
+  );
+}
