@@ -1,5 +1,116 @@
 {
-  "movies": [],
-  "sports": [],
-  "news": []
+  "movies": [
+    {
+      "id": "mov-101",
+      "title": "The Scenic Adventure",
+      "description": "Join the journey through breathtaking landscapes with epic music.",
+      "category": "Movies",
+      "thumbnail": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    {
+      "id": "mov-102",
+      "title": "Lost In The City",
+      "description": "A cityscape exploration, night lights, and hidden stories.",
+      "category": "Movies",
+      "thumbnail": "https://images.unsplash.com/photo-1465101162946-4377e57745c3?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+    },
+    {
+      "id": "mov-103",
+      "title": "Action Pulse",
+      "description": "A montage of high-energy car chases and explosions.",
+      "category": "Movies",
+      "thumbnail": "https://images.unsplash.com/photo-1505685296765-3a2736de412f?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    },
+    {
+      "id": "mov-104",
+      "title": "Romance By The Lake",
+      "description": "A short romantic story by a serene lake at dawn.",
+      "category": "Movies",
+      "thumbnail": "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1467353757034-4606d6f9fa5e?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://www.w3schools.com/html/movie.mp4"
+    }
+  ],
+  "sports": [
+    {
+      "id": "spo-201",
+      "title": "Championship Football Replay",
+      "description": "All the highlights from the thrilling cup final.",
+      "category": "Sports",
+      "thumbnail": "https://images.unsplash.com/photo-1505843279540-d5d34a7d8fcc?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+    },
+    {
+      "id": "spo-202",
+      "title": "Live Surfing Cam",
+      "description": "Catch the waves with a live surfing cam feed.",
+      "category": "Sports",
+      "thumbnail": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://test-streams.mux.dev/pts_shift/playlist.m3u8"
+    },
+    {
+      "id": "spo-203",
+      "title": "Basketball Top Plays",
+      "description": "A collection of spectacular dunks and blocks.",
+      "category": "Sports",
+      "thumbnail": "https://images.unsplash.com/photo-1423589989400-cc0270166c2f?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1504457046789-31a67b7fd434?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+    },
+    {
+      "id": "spo-204",
+      "title": "Motorsport Onboard",
+      "description": "Ride along in the cockpit for a lap.",
+      "category": "Sports",
+      "thumbnail": "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1469398715555-76331a13a02f?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://bitdash-a.akamaihd.net/content/MI201109210084_1/poster.png"
+    }
+  ],
+  "news": [
+    {
+      "id": "new-301",
+      "title": "Global Headlines",
+      "description": "A roundup of the day’s major stories from around the world.",
+      "category": "News",
+      "thumbnail": "https://images.unsplash.com/photo-1465447142348-e9952c393450?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    {
+      "id": "new-302",
+      "title": "Technology Updates",
+      "description": "Insights into the latest developments in tech.",
+      "category": "News",
+      "thumbnail": "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1465101162946-4377e57745c3?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4"
+    },
+    {
+      "id": "new-303",
+      "title": "Market Watch",
+      "description": "Finance, stocks, and economic highlights.",
+      "category": "News",
+      "thumbnail": "https://images.unsplash.com/photo-1474631245212-32dc3c8310c6?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
+    },
+    {
+      "id": "new-304",
+      "title": "Local Spotlight",
+      "description": "Stories and interviews from your community.",
+      "category": "News",
+      "thumbnail": "https://images.unsplash.com/photo-1485841890310-6a055c88698a?auto=format&fit=crop&w=400&q=80",
+      "banner": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+      "videoUrl": "https://test-streams.mux.dev/test_001/stream.m3u8"
+    }
+  ]
 }
