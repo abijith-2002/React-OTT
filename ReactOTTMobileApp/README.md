@@ -12,16 +12,21 @@ Key points:
   - Android (on connected device/emulator via Expo Go): `CI=1 npm run android`
   - iOS (on macOS with Simulator via Expo Go): `CI=1 npm run ios`
 
+CI quick healthcheck (no Gradle):
+- From repo root: `bash React-OTT/ci-run-expo-healthcheck.sh`
+- Or inside app folder: `CI=1 sh ./scripts/ci-healthcheck.sh`
+
 Non-interactive usage:
 - The scripts are configured to use the local Expo CLI.
 - Set `CI=1` in the environment when running in CI to force fully non-interactive behavior (e.g., auto-confirm port changes).
 
 Environment variables:
-- The app reads the following public variables from `.env` if present:
-  - EXPO_PUBLIC_TRUST_PROXY
-  - EXPO_PUBLIC_LOG_LEVEL
-  - EXPO_PUBLIC_HEALTHCHECK_PATH
-  - EXPO_PUBLIC_FEATURE_FLAGS
-  - EXPO_PUBLIC_EXPERIMENTS_ENABLED
+- The app reads the following public variables from `.env` if present (use AppConfig in utils/config.ts to access safely):
+  - EXPO_PUBLIC_TRUST_PROXY (boolean-like; e.g., "true"/"false", "1"/"0")
+  - EXPO_PUBLIC_LOG_LEVEL (debug|info|warn|error)
+  - EXPO_PUBLIC_HEALTHCHECK_PATH (string path; normalized to start with "/")
+  - EXPO_PUBLIC_FEATURE_FLAGS (JSON; e.g., {"edgeToEdge": true})
+  - EXPO_PUBLIC_EXPERIMENTS_ENABLED (boolean-like)
+- Do not access process.env directly in components. Use AppConfig to ensure safe boolean parsing and defaults.
 
 If native builds are needed in the future (bare workflow), you can eject from Expo to generate native projects. Until then, do not attempt `./gradlew` in CI.

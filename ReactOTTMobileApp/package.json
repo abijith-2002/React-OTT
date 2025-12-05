@@ -10,7 +10,8 @@
     "run:android": "npx expo run:android",
     "run:ios": "npx expo run:ios",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "healthcheck": "CI=1 sh ./scripts/ci-healthcheck.sh"
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",

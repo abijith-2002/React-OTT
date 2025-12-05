@@ -3,6 +3,7 @@ import { NavigationContainer, DefaultTheme, Theme } from "@react-navigation/nati
 import { createNativeStackNavigator, NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
 import DetailScreen from "../screens/DetailScreen";
+import { AppConfig } from "../utils/config";
 
 // PUBLIC_INTERFACE
 /**
@@ -33,6 +34,11 @@ const screenOptions: NativeStackNavigationOptions = {
  *   - Detail: Video detail UI
  */
 export default function AppNavigator() {
+  // Read config booleans safely; currently used as a no-op placeholder to ensure
+  // boolean parsing never throws if env values are provided as strings.
+  // In future, this can control theme or navigation behavior.
+  const _edgeToEdge = AppConfig.useEdgeToEdge();
+
   return (
     <NavigationContainer
       theme={{

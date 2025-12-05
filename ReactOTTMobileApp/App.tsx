@@ -45,6 +45,25 @@ const VideosProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
  *   - StatusBar via AppNavigator/screens.
  */
 export default function App() {
+  // Early config resolution to ensure no runtime cast issues from env
+  try {
+    // Lazy import to avoid cycle at module top; small overhead acceptable.
+    const { AppConfig } = require("./utils/config");
+    // Touch the booleans and JSON parsing; this should never throw.
+    // eslint-disable-next-line no-console
+    console.debug?.("[App] Config resolved", {
+      trustProxy: AppConfig.trustProxy(),
+      experimentsEnabled: AppConfig.experimentsEnabled(),
+      logLevel: AppConfig.logLevel(),
+      healthcheckPath: AppConfig.healthcheckPath(),
+      edgeToEdge: AppConfig.useEdgeToEdge(),
+      featureFlags: AppConfig.featureFlags(),
+    });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn?.("[App] Config resolution error (handled):", (e as Error)?.message);
+  }
+
   return (
     <SafeAreaProvider>
       <ErrorBoundary>
