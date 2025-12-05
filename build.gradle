@@ -1,0 +1,24 @@
+/*
+  This repository is an Expo-managed React Native app.
+  There is no native Gradle project to build here.
+
+  If your CI is attempting to run a Gradle build, switch to the Expo non-interactive healthcheck:
+    - bash React-OTT/ci-use-expo-healthcheck.sh
+    - or bash React-OTT/ci-run-expo-healthcheck.sh
+
+  For native builds, use EAS Build or eject to a bare workflow.
+*/
+
+task guard {
+    doLast {
+        println "[build.gradle guard] Expo-managed app: there is no native Gradle project here."
+        println "[build.gradle guard] Use the non-interactive Expo healthcheck instead:"
+        println "  bash React-OTT/ci-use-expo-healthcheck.sh"
+        println "  or"
+        println "  bash React-OTT/ci-run-expo-healthcheck.sh"
+        throw new GradleException("Expo-managed app: Gradle build not applicable in this repository")
+    }
+}
+
+// Default task to ensure any invocation fails fast with guidance
+defaultTasks 'guard'
