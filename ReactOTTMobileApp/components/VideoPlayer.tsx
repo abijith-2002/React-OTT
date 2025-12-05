@@ -88,7 +88,6 @@ export default function VideoPlayer({ sourceUrl, poster, testID }: VideoPlayerPr
     if (playerRef.current) {
       try {
         await playerRef.current.presentFullscreenPlayer();
-        setIsFullscreen(true);
       } catch {
         // Ignore if not supported
       }
