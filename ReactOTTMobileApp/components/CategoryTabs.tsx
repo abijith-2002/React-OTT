@@ -18,7 +18,7 @@ export default function CategoryTabs({ categories, selected, onSelect }: Categor
   return (
     <View style={styles.container} accessibilityRole="tablist">
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContainer}>
-        {categories.map(cat => (
+        {categories.map((cat) => (
           <TouchableOpacity
             key={cat}
             style={[

@@ -24,7 +24,7 @@ export interface Video {
 
 // Option 1: Map by category (recommended for grouping)
 export type VideoMap = {
-  [key in Category]: Video[];
+  [K in Category]: Video[];
 };
 
 // Option 2: Flat array of all videos if you want not to group

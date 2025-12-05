@@ -4,6 +4,7 @@
  * - Removes unsupported 'ecmaFeatures' key (JSX is detected by extensions).
  */
 const tsParser = require("@typescript-eslint/parser");
+const tsPlugin = require("@typescript-eslint/eslint-plugin");
 
 const sharedGlobals = {
   window: "readonly",
@@ -51,10 +52,15 @@ module.exports = [
       },
       globals: sharedGlobals,
     },
+    plugins: {
+      "@typescript-eslint": tsPlugin,
+    },
     rules: {
       "no-unused-vars": "warn",
       "no-undef": "off",
       "no-console": "off",
+      // Allow require() in TS where explicitly used for runtime JSON loading guards
+      "@typescript-eslint/no-var-requires": "off",
     },
   },
 ];

@@ -26,8 +26,19 @@ export function useVideos() {
 }
 
 const VideosProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Load and memoize mock video data at app startup
-  const { videosByCategory, allVideos, errors } = useMemo(() => loadVideos(), []);
+  // Load and memoize mock video data at app startup; guard against unexpected throws.
+  const { videosByCategory, allVideos, errors } = useMemo(() => {
+    try {
+      return loadVideos();
+    } catch (e) {
+      // Provide empty fallback to keep UI responsive
+      return {
+        videosByCategory: { Movies: [], Sports: [], News: [] },
+        allVideos: [],
+        errors: [`Unexpected error while loading videos: ${(e as Error)?.message || "unknown"}`],
+      };
+    }
+  }, []);
   const videoValue = useMemo(
     () => ({ videosByCategory, allVideos, errors }),
     [videosByCategory, allVideos, errors]
@@ -50,7 +61,6 @@ export default function App() {
     // Lazy import to avoid cycle at module top; small overhead acceptable.
     const { AppConfig } = require("./utils/config");
     // Touch the booleans and JSON parsing; this should never throw.
-    // eslint-disable-next-line no-console
     console.debug?.("[App] Config resolved", {
       trustProxy: AppConfig.trustProxy(),
       experimentsEnabled: AppConfig.experimentsEnabled(),
@@ -60,7 +70,6 @@ export default function App() {
       featureFlags: AppConfig.featureFlags(),
     });
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.warn?.("[App] Config resolution error (handled):", (e as Error)?.message);
   }
 

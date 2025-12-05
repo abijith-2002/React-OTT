@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import type { RootStackParamList } from "../navigation/AppNavigator";
-import { loadVideos } from "../utils/dataLoader";
 import type { Video } from "../data/videoTypes";
+import { useVideos } from "../App";
 import LoadingIndicator from "../components/LoadingIndicator";
 import ErrorBoundary from "../components/ErrorBoundary";
 import Colors, { Sizing } from "../theme/theme";
@@ -41,8 +41,8 @@ export default function DetailScreen() {
   // Get navigation params (may be undefined)
   const videoId = route.params?.videoId;
 
-  // Load data only once
-  const { allVideos, errors: dataErrors } = loadVideos();
+  // Read data from global context (loaded once by VideosProvider)
+  const { allVideos, errors: dataErrors } = useVideos();
 
   // UI State: handle param/data error, missing video, etc.
   let video: Video | undefined = undefined;

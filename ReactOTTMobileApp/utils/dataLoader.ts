@@ -1,5 +1,4 @@
 import { Video, Category, VideoMap, VideoList } from "../data/videoTypes";
-import mockVideos from "../data/mockVideos.json";
 import { isNonEmptyArray, isString } from "./safeGet";
 
 // ----- Types -----
@@ -79,13 +78,30 @@ export function loadVideos(): {
   const allVideos: VideoList = [];
   const errors: string[] = [];
 
+  // Try to read local JSON defensively to avoid crashing the app if JSON cannot be parsed or resolved.
+  let mockData: unknown;
+  try {
+    // Use require to avoid TypeScript/tsconfig resolveJsonModule dependency and ensure Metro can bundle JSON.
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    mockData = require("../data/mockVideos.json");
+  } catch (e) {
+    errors.push(`Failed to load mockVideos.json: ${(e as Error)?.message || "unknown error"}`);
+    // Return empty structures with error message so UI can render fallback instead of freezing.
+    return { videosByCategory, allVideos, errors };
+  }
+
+  if (!mockData || typeof mockData !== "object") {
+    errors.push("mockVideos.json did not export an object");
+    return { videosByCategory, allVideos, errors };
+  }
+
   // Defensive: Accept keys in mockVideos (could be string-case differences or new categories)
-  for (const key of Object.keys(mockVideos)) {
+  for (const key of Object.keys(mockData as Record<string, unknown>)) {
     // Normalize to category enum if possible
     const catEnum = categories.find(c => c.toLowerCase() === key.toLowerCase());
     // `unknown` type for property access
-    const arr: unknown = (mockVideos as Record<string, unknown>)[key];
-    if (!catEnum || !isNonEmptyArray(arr)) {
+    const arr: unknown = (mockData as Record<string, unknown>)[key];
+    if (!catEnum || !Array.isArray(arr)) {
       if (!catEnum) errors.push(`Warning: Unknown category "${key}" present in mock data`);
       continue;
     }
@@ -99,6 +115,7 @@ export function loadVideos(): {
       }
     }
   }
+
   // If categories are present but empty, provide a friendly fallback message.
   for (const cat of categories) {
     if (!isNonEmptyArray(videosByCategory[cat])) {

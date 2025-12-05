@@ -37,7 +37,8 @@ export default function AppNavigator() {
   // Read config booleans safely; currently used as a no-op placeholder to ensure
   // boolean parsing never throws if env values are provided as strings.
   // In future, this can control theme or navigation behavior.
-  const _edgeToEdge = AppConfig.useEdgeToEdge();
+  // Evaluate to ensure config parsing is exercised; not currently used to alter navigation
+  void AppConfig.useEdgeToEdge();
 
   return (
     <NavigationContainer

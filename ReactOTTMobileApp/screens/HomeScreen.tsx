@@ -37,7 +37,8 @@ export default function HomeScreen() {
 
   // Load/validate videos once from global VideosContext
   const { videosByCategory, errors } = useVideos();
-  const videos = videosByCategory[selectedCat];
+  // Default to empty array if category missing to avoid indefinite spinners
+  const videos: Video[] = videosByCategory?.[selectedCat] ?? [];
   // Note: data state logic previously present was unused and caused linter violations. Rely on local logic instead.
 
   // Pull-to-refresh (simulated - will just reload from in-memory mock for now)
@@ -87,7 +88,7 @@ export default function HomeScreen() {
         <View style={styles.listWrap}>
           {errors.length > 0 ? (
             <ErrorContent />
-          ) : !videos || refreshing ? (
+          ) : refreshing ? (
             <LoadingIndicator />
           ) : videos.length === 0 ? (
             <EmptyContent />
