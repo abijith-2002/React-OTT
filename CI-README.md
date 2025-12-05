@@ -7,9 +7,9 @@ Use the provided helper to run a quick non-interactive healthcheck:
 
 Alternatively, from inside React-OTT/ReactOTTMobileApp you can run:
 - npm run healthcheck
-- npm run start           # non-interactive on fixed port 8083
-- npm run start:port      # PORT=8090 npm run start:port to override port
-- npm run web             # non-interactive web target on fixed port
+- npm run start           # non-interactive on fixed port 8083 (CI=1)
+- npm run start:port      # PORT=8090 npm run start:port to override port (CI=1)
+- npm run web             # non-interactive web target on fixed port (CI=1)
 
 Equivalent manual steps:
 - cd React-OTT/ReactOTTMobileApp

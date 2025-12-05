@@ -18,7 +18,7 @@ CI quick healthcheck (no Gradle):
 
 Non-interactive usage:
 - The scripts are configured to use the local Expo CLI.
-- Set `CI=1` in the environment when running in CI to force fully non-interactive behavior (e.g., auto-confirm port changes).
+- Set `CI=1` in the environment when running in CI to force fully non-interactive behavior (e.g., auto-confirm port changes). Avoid deprecated flags like `--non-interactive` or `--no-dev-tools`; the package.json scripts already set `CI=1` for you.
 
 Environment variables:
 - The app reads the following public variables from `.env` if present (use AppConfig in utils/config.ts to access safely):

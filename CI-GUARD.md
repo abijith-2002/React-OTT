@@ -17,8 +17,8 @@ Or run inside the app folder:
   CI=1 sh ./scripts/ci-healthcheck.sh
 
 Non-interactive starts (fixed port to avoid prompts):
-  npm run start           # starts on 8083 with --non-interactive
-  npm run web             # web target on 8083 with --non-interactive
-  PORT=8090 npm run start:port  # override the port if needed
+  npm run start           # starts on 8083 (CI=1)
+  npm run web             # web target on 8083 (CI=1)
+  PORT=8090 npm run start:port  # override the port if needed (CI=1)
 
 If your CI system still attempts a "gradle check", configure it to skip Gradle for this project and invoke the healthcheck above. Native builds should use EAS Build or an ejected (bare) workflow.

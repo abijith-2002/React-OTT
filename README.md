@@ -14,3 +14,9 @@ CI/mobile analysis tools that expect a Gradle build may report: `./gradlew: No s
 - `CI=1 npm run start` to launch the Expo dev server in non-interactive mode
 - `CI=1 npm run web` to run the web target non-interactively
 - For Android/iOS via Expo Go on devices/simulators: `CI=1 npm run android` or `CI=1 npm run ios`
+
+CI guard scripts (use these instead of any Gradle step):
+- `bash React-OTT/gradle-check-guard.sh`
+- `bash React-OTT/ci-use-expo-healthcheck.sh`
+- `bash React-OTT/ci-mobile-skip-gradle-and-healthcheck.sh`
+- `bash React-OTT/ci-mobile-check-override.sh`
