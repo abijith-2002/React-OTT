@@ -15,6 +15,11 @@ Equivalent manual steps:
   npm ci --no-audit --no-fund --progress=false
   CI=1 sh ./scripts/ci-healthcheck.sh
 
+Useful scripts (non-interactive, fixed port):
+  npm run start            # starts on port 8083 without prompts
+  PORT=8090 npm run start:port
+  npm run web
+
 Notes:
 - This validates the project can start with Expo and that Metro configuration is healthy.
 - For native build artifacts, use EAS Build or eject to the bare workflow first.

@@ -7,6 +7,9 @@ Use the provided helper to run a quick non-interactive healthcheck:
 
 Alternatively, from inside React-OTT/ReactOTTMobileApp you can run:
 - npm run healthcheck
+- npm run start           # non-interactive on fixed port 8083
+- npm run start:port      # PORT=8090 npm run start:port to override port
+- npm run web             # non-interactive web target on fixed port
 
 Equivalent manual steps:
 - cd React-OTT/ReactOTTMobileApp
@@ -17,4 +20,4 @@ Equivalent manual steps:
 If your pipeline previously attempted a Gradle task and failed with:
 - `Error running gradle check`
 - `./gradlew: No such file or directory`
-then switch to the steps above or use EAS Build for native artifacts.
+then switch to the steps above or use EAS Build for native artifacts. Do not run `./gradlew`; it is intentionally absent in an Expo-managed project.

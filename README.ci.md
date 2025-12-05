@@ -13,4 +13,9 @@ Do NOT run `./gradlew` in CI. Instead, use the non-interactive Expo healthcheck:
   npm ci --no-audit --no-fund --progress=false
   CI=1 sh ./scripts/ci-healthcheck.sh
 
-If your CI system attempts a "mobile gradle check", configure it to skip Gradle for this container and invoke the Expo healthcheck script above.
+Optional non-interactive starts (fixed port 8083 to avoid prompts):
+  npm run start
+  npm run web
+  PORT=8090 npm run start:port
+
+If your CI system attempts a "mobile gradle check", configure it to skip Gradle for this container and invoke the Expo healthcheck script above. The Gradle wrapper is intentionally not present in this repository.

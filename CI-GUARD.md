@@ -1,14 +1,24 @@
-# CI Guard for Expo-managed App
+# CI Guard for Expo-managed App (Root)
 
-This project is Expo-managed; there is no Gradle wrapper in this repository.
+This workspace contains an Expo-managed app at React-OTT/ReactOTTMobileApp.
 
-If your CI expects to run a "Gradle check" step, replace that step with:
+- There is no Gradle wrapper (`./gradlew`) or native `android/ios` folders here by design.
+- Do NOT run any Gradle tasks in CI for this container.
 
-- bash React-OTT/ci-mobile-skip-gradle-and-healthcheck.sh
+Use the non-interactive Expo healthcheck instead:
 
-What it does:
-- Prints a clear notice that Gradle is not applicable.
-- Runs the non-interactive Expo healthcheck to validate the app can start.
-- Exits with code 0 when successful.
+Quick start (from workspace root):
+  bash React-OTT/ci-run-expo-healthcheck.sh
 
-If you truly need native build artifacts, use EAS Build or eject to the bare workflow first.
+Or run inside the app folder:
+  cd React-OTT/ReactOTTMobileApp
+  export CI=1
+  npm ci --no-audit --no-fund --progress=false
+  CI=1 sh ./scripts/ci-healthcheck.sh
+
+Non-interactive starts (fixed port to avoid prompts):
+  npm run start           # starts on 8083 with --non-interactive
+  npm run web             # web target on 8083 with --non-interactive
+  PORT=8090 npm run start:port  # override the port if needed
+
+If your CI system still attempts a "gradle check", configure it to skip Gradle for this project and invoke the healthcheck above. Native builds should use EAS Build or an ejected (bare) workflow.
