@@ -1,0 +1,7 @@
+expo-managed: true
+reason: This is an Expo-managed React Native project. Skip Gradle checks and use npm (Expo) scripts instead.
+recommended_commands:
+  - CI=1 npm ci
+  - CI=1 npm run start
+  - CI=1 npm run web
+docs: See README.md and CI-NOTES.md for details.

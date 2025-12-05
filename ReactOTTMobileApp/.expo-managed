@@ -1,0 +1,3 @@
+# This file indicates the project uses the Expo managed workflow.
+# Managed apps do not include native android/ios folders or a Gradle wrapper (./gradlew).
+# CI systems should not attempt to run Gradle for this project. Use npm scripts (expo) instead.
