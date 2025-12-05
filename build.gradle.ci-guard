@@ -1,0 +1,24 @@
+/*
+  CI Gradle Guard: This is an Expo-managed repository without a native Gradle project.
+  Some CI systems forcibly invoke Gradle. This guard redirects to the Expo healthcheck
+  and exits successfully to avoid false failures.
+*/
+
+task ciGuard {
+    doLast {
+        println "[build.gradle.ci-guard] Expo-managed app detected. Running Expo healthcheck instead of Gradle..."
+        // Execute the existing healthcheck script
+        def proc = ["bash", "React-OTT/ci-run-expo-healthcheck.sh"].execute()
+        proc.in.eachLine { println it }
+        proc.err.eachLine { System.err.println(it) }
+        proc.waitFor()
+
+        if (proc.exitValue() != 0) {
+            throw new GradleException("Expo healthcheck failed. See logs above.")
+        }
+        println "[build.gradle.ci-guard] Healthcheck completed successfully. Skipping Gradle by design."
+    }
+}
+
+// Make this guard the default task so any 'gradle' call runs the healthcheck and exits 0.
+defaultTasks 'ciGuard'

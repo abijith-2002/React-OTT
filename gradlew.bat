@@ -1,10 +1,11 @@
 @echo off
-echo [gradlew] This repository is an Expo-managed app and does not include a real Gradle wrapper.
-echo [gradlew] Do NOT run Gradle tasks here.
-echo [gradlew] Use the non-interactive Expo healthcheck instead:
-echo    bash React-OTT/ci-use-expo-healthcheck.sh
-echo    or
-echo    bash React-OTT/ci-run-expo-healthcheck.sh
-echo.
-echo [gradlew] For native builds, use EAS Build or eject to a bare workflow.
-exit /b 2
+setlocal enabledelayedexpansion
+echo [gradlew] Expo-managed app detected (no native Gradle project).
+echo [gradlew] Redirecting to non-interactive Expo healthcheck...
+bash React-OTT/ci-run-expo-healthcheck.sh
+if errorlevel 1 (
+  echo [gradlew] Healthcheck failed. See logs above.
+  exit /b 1
+)
+echo [gradlew] Healthcheck succeeded. Skipping Gradle by design. Exiting 0.
+exit /b 0
