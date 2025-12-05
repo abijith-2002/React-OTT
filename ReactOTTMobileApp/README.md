@@ -30,3 +30,13 @@ Environment variables:
 - Do not access process.env directly in components. Use AppConfig to ensure safe boolean parsing and defaults.
 
 If native builds are needed in the future (bare workflow), you can eject from Expo to generate native projects. Until then, do not attempt `./gradlew` in CI.
+
+## Navigation and Player
+
+- Home screen lists videos by category. Tapping a card navigates to Detail.
+- Detail screen shows metadata and a prominent Play button.
+- Tapping Play navigates to the new Player screen:
+  - Route name: `Player`
+  - Params: `{ videoId: string, title?: string }`
+- Player screen loads the video by id from app context and renders the VideoPlayer component with controls and fullscreen.
+- Error states (missing id, bad data, not found) render a simple message instead of crashing.

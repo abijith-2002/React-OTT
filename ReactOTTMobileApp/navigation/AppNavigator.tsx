@@ -3,16 +3,18 @@ import { NavigationContainer, DefaultTheme, Theme } from "@react-navigation/nati
 import { createNativeStackNavigator, NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
 import DetailScreen from "../screens/DetailScreen";
+import PlayerScreen from "../screens/PlayerScreen";
 import { AppConfig } from "../utils/config";
 
 // PUBLIC_INTERFACE
 /**
- * AppNavigator provides the core navigation stack (Home, Detail) for the OTT app.
+ * AppNavigator provides the core navigation stack (Home, Detail, Player) for the OTT app.
  * Use this as the main navigator within the application root.
  */
 export type RootStackParamList = {
   Home: undefined;
   Detail: { videoId: string } | undefined;
+  Player: { videoId: string; title?: string } | undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -32,6 +34,7 @@ const screenOptions: NativeStackNavigationOptions = {
  * Includes:
  *   - Home: Category and video list
  *   - Detail: Video detail UI
+ *   - Player: Dedicated video playback screen
  */
 export default function AppNavigator() {
   // Read config booleans safely; currently used as a no-op placeholder to ensure
@@ -60,6 +63,11 @@ export default function AppNavigator() {
           name="Detail"
           component={DetailScreen}
           options={{ title: "Details" }}
+        />
+        <Stack.Screen
+          name="Player"
+          component={PlayerScreen}
+          options={{ title: "Player" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

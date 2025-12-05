@@ -7,15 +7,16 @@ import {
   ScrollView,
   Dimensions,
   Platform,
+  TouchableOpacity,
 } from "react-native";
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../navigation/AppNavigator";
 import type { Video } from "../data/videoTypes";
 import { useVideos } from "../App";
 import LoadingIndicator from "../components/LoadingIndicator";
 import ErrorBoundary from "../components/ErrorBoundary";
 import Colors, { Sizing } from "../theme/theme";
-import VideoPlayer from "../components/VideoPlayer";
 
 // -- Constants
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -29,14 +30,13 @@ function findVideoById(videoId: string, allVideos: Video[]): Video | undefined {
 /**
  * DetailScreen - Shows details for a single video item.
  * Displays: banner/thumbnail, title, description, category.
- * Includes area for VideoPlayer (to be added), and full error handling.
+ * Includes a prominent Play button that navigates to the dedicated Player screen.
  * Handles missing/invalid params and data gracefully, uses theme/utility imports, and fits navigation contract.
  */
 export default function DetailScreen() {
   // Route and navigation setup
-  const route =
-    useRoute<RouteProp<RootStackParamList, "Detail">>();
-  // Navigation hook initialized but not currently used; removed to resolve lint error.
+  const route = useRoute<RouteProp<RootStackParamList, "Detail">>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, "Detail">>();
 
   // Get navigation params (may be undefined)
   const videoId = route.params?.videoId;
@@ -64,6 +64,11 @@ export default function DetailScreen() {
     video && typeof video.banner === "string" && video.banner.startsWith("http")
       ? { uri: video.banner }
       : undefined;
+
+  const onPressPlay = () => {
+    if (!video) return;
+    navigation.navigate("Player", { videoId: video.id, title: video.title });
+  };
 
   // Render section
   return (
@@ -105,17 +110,20 @@ export default function DetailScreen() {
             {/* Description */}
             <Text style={styles.description}>{video?.description || "No description available."}</Text>
 
-            {/* VideoPlayer */}
-            <View style={styles.videoPlayerPlaceholder} accessibilityLabel="Video player area" testID="video-player-placeholder">
-              {video?.videoUrl ? (
-                // poster is banner, fallback to thumbnail
-                <VideoPlayer
-                  sourceUrl={video.videoUrl}
-                  poster={typeof video.banner === "string" ? video.banner : (typeof video.thumbnail === "string" ? video.thumbnail : undefined)}
-                  testID="video-player"
-                />
-              ) : (
-                <Text style={styles.videoPlayerText}>No video available to play.</Text>
+            {/* Play Button */}
+            <View style={styles.playWrap}>
+              <TouchableOpacity
+                style={styles.playButton}
+                onPress={onPressPlay}
+                accessibilityRole="button"
+                accessibilityLabel="Play Video"
+                testID="play-button"
+                disabled={!video}
+              >
+                <Text style={styles.playButtonText}>Play</Text>
+              </TouchableOpacity>
+              {!video?.videoUrl && (
+                <Text style={styles.playNote}>No video available to play.</Text>
               )}
             </View>
           </ScrollView>
@@ -191,21 +199,31 @@ const styles = StyleSheet.create({
     marginBottom: 28,
     marginTop: 4,
   },
-  videoPlayerPlaceholder: {
+  playWrap: {
     marginHorizontal: Sizing.padding,
     marginVertical: 20,
-    minHeight: SCREEN_WIDTH * 0.45,
-    backgroundColor: "#EDF2FA",
-    borderRadius: 12,
-    borderColor: Colors.border,
-    borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  videoPlayerText: {
+  playButton: {
+    backgroundColor: Colors.primary,
+    paddingVertical: 14,
+    paddingHorizontal: 36,
+    borderRadius: 28,
+    elevation: 2,
+  },
+  playButtonText: {
+    color: Colors.background,
+    fontSize: 18,
+    fontWeight: "800",
+    letterSpacing: 0.5,
+  },
+  playNote: {
     color: Colors.grey,
-    fontSize: 15,
+    fontSize: 13,
+    marginTop: 10,
     fontStyle: "italic",
+    textAlign: "center",
   },
   errorBlock: {
     flex: 1,

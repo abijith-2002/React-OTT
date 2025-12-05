@@ -1,7 +1,7 @@
 //
+//
 // Types and interfaces for video browsing OTT data model.
 //
-
 // PUBLIC_INTERFACE
 /**
  * Category - Enumerated categories for the OTT app: Movies, Sports, News.
@@ -29,3 +29,11 @@ export type VideoMap = {
 
 // Option 2: Flat array of all videos if you want not to group
 export type VideoList = Video[];
+
+// PUBLIC_INTERFACE
+/**
+ * Route params helpers for navigation.
+ * Player screen expects a videoId (and optional title for header).
+ */
+export type PlayerRouteParams = { videoId: string; title?: string };
+export type DetailRouteParams = { videoId: string };
